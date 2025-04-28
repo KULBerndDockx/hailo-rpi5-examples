@@ -42,7 +42,7 @@ def app_callback(pad, info, user_data):
     string_to_print = f"Frame count: {user_data.get_count()}\n"
 
     # Get the caps from the pad
-    format, width, height = get_caps_from_pad(pad)
+    format, widlllth, height = get_caps_from_pad(pad)
 
     # If the user_data.use_frame is set to True, we can get the video frame from the buffer
     frame = None
@@ -59,7 +59,17 @@ def app_callback(pad, info, user_data):
     for detection in detections:
         label = detection.get_label()
         bbox = detection.get_bbox()
+        #print(dir(bbox))
+        
         confidence = detection.get_confidence()
+        if label == "keyboard":
+            xcord = (bbox.xmax()+bbox.xmin())/2
+            ycord = (bbox.ymax()+bbox.ymin())/2
+            print("toembod gesbod: ( "+ str(xcord) + " , " + str(ycord) + ")")
+            
+        if label == "tv" and confidence >= 0.50:
+            print("waf")
+            
         if label == "person":
             # Get track ID
             track_id = 0
